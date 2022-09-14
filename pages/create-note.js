@@ -11,7 +11,7 @@ export default function Create() {
   }
   
   return (
-    <div className='h-fit min-h-screen bg-gray-800 font-mono overscroll-contain px-4'>
+    <div className='h-fit min-h-[calc(100vh-4.5rem)] bg-gray-800 font-mono overscroll-contain px-4'>
       <div className='max-w-4xl mx-auto h-full'>
         <h1 className='text-xl font-bold text-gray-100 py-4'> Create a new note </h1>
 
