@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
+import Link from "next/link";
 
 function Layout({ children }) {
   const router = useRouter();
@@ -8,41 +9,40 @@ function Layout({ children }) {
   let userString = session.data ? session.data.user.name : "not signed in";
   return (
     <>
-      <div className="bg-gray-800 font-mono py-4">
-        <div className="flex items-center justify-between max-w-4xl mx-auto px-4 lg:px-0">
-          <div className="flex gap-4">
-            <p className="text-gray-100 text-xl py-2 ">{userString}</p>
-            {
-              !session.data && (
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => signIn()}
-                >
-                  Sign In
-                </button>
-              )
-            }
-            {
-              session.data && (
-                <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                  onClick={() => signOut()}
-                >
-                  Sign Out
-                </button>
-              )
-            }
-          </div>
-          {
-            pathname !== "/create-note" && (
+      <div className="bg-gray-800 py-4 font-mono">
+        <div className="mx-auto flex max-w-4xl items-center justify-between px-4 lg:px-0">
+          <Link href="/">
+            <a className="text-xl font-bold text-gray-50 hover:text-gray-300">
+              ~Tilde~
+            </a>
+          </Link>
+          <div className="flex">
+            <p className="py-2 text-xl text-gray-100 ">{userString}</p>
+            {!session.data && (
               <button
-                className="w-fit bg-teal-600 text-gray-100 rounded p-2 "
+                className="hover:bg-blue-700text-sm mx-4 rounded bg-blue-500 p-2 font-bold text-white"
+                onClick={() => signIn()}
+              >
+                Sign In
+              </button>
+            )}
+            {session.data && (
+              <button
+                className="mx-4 rounded bg-blue-500 p-2 text-sm font-bold text-white hover:bg-blue-700"
+                onClick={() => signOut()}
+              >
+                Sign Out
+              </button>
+            )}
+            {pathname !== "/create-note" && (
+              <button
+                className="w-fit rounded bg-teal-600 p-2 text-sm font-bold text-gray-100 hover:bg-teal-700"
                 onClick={() => router.push("/create-note")}
               >
                 New Note
               </button>
-            )
-          }
+            )}
+          </div>
         </div>
       </div>
       {children}
