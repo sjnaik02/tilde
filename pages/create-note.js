@@ -11,7 +11,7 @@ export default function Create() {
   };
 
   return (
-    <div className="h-fit min-h-[calc(100vh-4.5rem)] bg-gray-800 px-4 font-mono">
+    <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
       <div className="mx-auto h-full max-w-4xl">
         <h1 className="py-4 text-xl font-bold text-gray-100">
           Create a new note

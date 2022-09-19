@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import Footer from "./Footer";
 
 function Layout({ children }) {
   const router = useRouter();
@@ -26,7 +27,6 @@ function Layout({ children }) {
                 </a>
               </Link>
             )}
-
             {!session.data && (
               <button
                 className="hover:bg-blue-700text-sm mx-4 rounded bg-blue-500 p-2 font-bold text-white"
@@ -55,6 +55,7 @@ function Layout({ children }) {
         </div>
       </div>
       {children}
+      <Footer />
     </>
   );
 }

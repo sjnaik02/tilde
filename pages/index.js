@@ -8,7 +8,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-[calc(100vh-4.5rem)] bg-gray-800 font-mono">
+    <div className="h-[calc(100vh-8rem)] bg-gray-800 font-mono">
       <div className="mx-auto flex h-full max-w-4xl flex-col justify-center pb-32">
         <h1 className="m-4 text-4xl font-bold text-gray-50 lg:text-7xl">
           Welcome to Tilde
