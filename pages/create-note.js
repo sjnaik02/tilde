@@ -4,6 +4,7 @@ import MarkdownPreview from "../components/MarkdownPreview";
 
 export default function Create() {
   const [note, setNote] = useState("");
+  const [title, setTitle] = useState("");
   const [preview, setPreview] = useState(false);
 
   const handleChange = (e) => {
@@ -13,16 +14,22 @@ export default function Create() {
   return (
     <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
       <div className="mx-auto h-full max-w-4xl">
-        <h1 className="py-4 text-xl font-bold text-gray-100">
-          Create a new note
-        </h1>
-
         <button
-          className="rounded bg-blue-500 py-2 px-4 font-bold text-white hover:bg-blue-700"
+          className="rounded border-2  border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100"
           onClick={() => setPreview(!preview)}
         >
           {preview ? "Edit" : "Preview"}
         </button>
+
+        <input
+          type="text"
+          className={`mt-4 w-full bg-gray-800 p-1 pl-0 text-gray-100 caret-white outline-none ${
+            preview ? "text-bold font-sans" : ""
+          } `}
+          placeholder="Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
         {preview ? (
           <MarkdownPreview note={note} />
