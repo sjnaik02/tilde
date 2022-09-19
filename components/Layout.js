@@ -6,7 +6,7 @@ function Layout({ children }) {
   const router = useRouter();
   const { pathname } = router;
   const session = useSession();
-  let userString = session.data ? session.data.user.name : "not signed in";
+  let userString = session.data ? session.data.user.name : "Not signed in";
   return (
     <>
       <div className="bg-gray-800 py-4 font-mono">
@@ -17,7 +17,16 @@ function Layout({ children }) {
             </a>
           </Link>
           <div className="flex">
-            <p className="py-2 text-xl text-gray-100 ">{userString}</p>
+            {session.status === "unauthenticated" ? (
+              <p className="py-2 text-xl text-gray-100 ">{userString}</p>
+            ) : (
+              <Link href="/profile">
+                <a className="py-2 text-xl text-gray-100 hover:text-gray-300">
+                  {userString}
+                </a>
+              </Link>
+            )}
+
             {!session.data && (
               <button
                 className="hover:bg-blue-700text-sm mx-4 rounded bg-blue-500 p-2 font-bold text-white"
