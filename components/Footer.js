@@ -12,6 +12,15 @@ function Footer() {
           >
             Shourya Naik
           </a>
+          <a
+            href="https://github.com/sjnaik02/tilde"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:text-blue-700"
+          >
+            {" "}
+            | View on Github
+          </a>
         </p>
       </div>
     </div>
