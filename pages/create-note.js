@@ -2,10 +2,13 @@ import { useState } from "react";
 import autosize from "autosize";
 import MarkdownPreview from "../components/MarkdownPreview";
 import { useSession } from "next-auth/react";
+import { nanoid } from "nanoid";
 
 export default function Create() {
   const [note, setNote] = useState("");
   const [title, setTitle] = useState("");
+  const [isPrivate, setisPrivate] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [preview, setPreview] = useState(false);
 
   const session = useSession();
@@ -16,13 +19,15 @@ export default function Create() {
 
   const handleSave = async () => {
     if (session.status === "authenticated") {
+      setSaving(true);
       let post = {
+        postId: nanoid(10),
         title: title,
         content: note.toString(),
         createdAt: new Date().toISOString(),
         createdBy: session.data.user.name,
         createdById: session.data.user.id,
-        private: false,
+        private: isPrivate,
       };
       const res = await fetch("/api/notes", {
         method: "POST",
@@ -40,6 +45,7 @@ export default function Create() {
         alert(data.message);
       }
     }
+    setSaving(false);
   };
 
   return (
@@ -52,7 +58,6 @@ export default function Create() {
           {preview ? "Edit" : "Preview"}
         </button>
 
-        {/*disable save button if the user is unauthenticated */}
         <button
           className="mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100 disabled:border-gray-400 disabled:text-gray-100 disabled:hover:bg-gray-800"
           disabled={
@@ -62,6 +67,15 @@ export default function Create() {
         >
           Save
         </button>
+
+        <button
+          className="mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100"
+          onClick={() => setisPrivate(!isPrivate)}
+        >
+          {isPrivate ? "set Public" : "set Private"}
+        </button>
+
+        {saving && <span className="animate-pulse text-white ">Saving..</span>}
 
         <input
           type="text"
