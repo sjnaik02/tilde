@@ -21,7 +21,7 @@ export default function Create() {
     if (session.status === "authenticated") {
       setSaving(true);
       let post = {
-        postId: nanoid(10),
+        noteId: nanoid(10),
         title: title,
         content: note.toString(),
         createdAt: new Date().toISOString(),
@@ -52,7 +52,7 @@ export default function Create() {
     <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
       <div className="mx-auto h-full max-w-4xl">
         <button
-          className="rounded border-2  border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100"
+          className="mr-2 rounded border-2  border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100"
           onClick={() => setPreview(!preview)}
         >
           {preview ? "Edit" : "Preview"}
@@ -60,17 +60,20 @@ export default function Create() {
 
         <button
           className="mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100 disabled:border-gray-400 disabled:text-gray-100 disabled:hover:bg-gray-800"
+          onClick={handleSave}
           disabled={
             session.status === "unauthenticated" || session.status === "loading"
           }
-          onClick={handleSave}
         >
           Save
         </button>
 
         <button
-          className="mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100"
+          className="disabled:hover:bg-gray-80 mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500  hover:text-gray-100 disabled:border-gray-400 disabled:text-gray-100 disabled:hover:bg-gray-800"
           onClick={() => setisPrivate(!isPrivate)}
+          disabled={
+            session.status === "unauthenticated" || session.status === "loading"
+          }
         >
           {isPrivate ? "set Public" : "set Private"}
         </button>
@@ -80,7 +83,7 @@ export default function Create() {
         <input
           type="text"
           className={`mt-4 w-full bg-gray-800 p-1 pl-0 text-gray-100 caret-white outline-none ${
-            preview ? "text-bold font-sans" : ""
+            preview ? "text-sm" : ""
           } `}
           placeholder="Title"
           value={title}
