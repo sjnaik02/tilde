@@ -1,7 +1,28 @@
 import { useSession, signIn, signOut } from "next-auth/react";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 function profile() {
   const session = useSession();
+  const id = session.data ? session.data.user.id : null;
+  const [notes, setNotes] = useState([]);
+  //fetch notes by user id
+  useEffect(() => {
+    console.log(id);
+    if (id) {
+      fetch("/api/notez/notes-by-user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ createdById: id }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setNotes(data);
+        });
+    }
+  }, [id]);
 
   if (session.status === "unauthenticated") {
     return (
@@ -14,17 +35,31 @@ function profile() {
   if (session.status === "loading") {
     return <h1>Loading...</h1>;
   } else {
+    const id = session.data.user.id;
+
     return (
-      <div className="h-[calc(100vh-4.5rem)] bg-gray-800 font-mono text-gray-100">
+      <div className="h-[calc(100vh-4.5rem)] bg-gray-800 p-4 font-mono text-gray-100">
         <div className="mx-auto flex h-full max-w-4xl flex-col">
           <h1 className="mt-8 mb-4 text-6xl font-bold">
             {session.data.user.name}
           </h1>
           <hr></hr>
           <section>
-            <h2 className=" mt-8 text-2xl font-bold">My Notes</h2>
-            {/*TODO  add a fetch for all notes by user of this id*/}
-            <p>{session.data.user.id} </p>
+            <h2 className=" mt-8 pb-2 text-2xl font-bold ">My Notes</h2>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {notes.map((note) => (
+                <div
+                  key={note.noteID}
+                  className=" rounded-lg bg-gray-700 p-4 font-bold hover:cursor-pointer hover:bg-gray-600"
+                >
+                  <h3 className="text-xl font-bold">{note.title}</h3>
+                  <p className="overflow-ellipsis text-sm">{note.content}</p>
+                  <Link href={`/notes/${note.noteId}`}>
+                    <a className=" text-blue-500">View</a>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </section>
         </div>
       </div>
