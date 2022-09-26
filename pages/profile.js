@@ -50,16 +50,21 @@ function profile() {
               {notes.map((note) => (
                 <div
                   key={note.noteId}
-                  className=" rounded-lg bg-gray-700 p-4 font-bold hover:cursor-pointer hover:bg-gray-600"
+                  className=" rounded-lg bg-gray-700 p-4 font-bold"
                 >
-                  <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-xl font-bold">
+                  <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap py-1 text-xl font-bold">
                     {note.title}
                   </h3>
-                  <p className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm">
+                  <p className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap py-1 text-sm">
                     {note.content}
                   </p>
+                  <p className=" text-xs text-green-500">
+                    {note.private ? "Private" : "Public"}
+                  </p>
                   <Link href={`/notes/${note.noteId}`}>
-                    <a className=" text-blue-500">View</a>
+                    <a className=" text-blue-500 hover:text-blue-400 hover:underline">
+                      View
+                    </a>
                   </Link>
                 </div>
               ))}
