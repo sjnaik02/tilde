@@ -1,5 +1,3 @@
-//extract all my buttons into custom components
-
 function Button({ children, onClick, className, disabled }) {
   return (
     <button
