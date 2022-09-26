@@ -11,9 +11,11 @@ export default function Note() {
   const { noteID } = router.query;
   const [note, setNote] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
+  const [editing, setEditing] = useState(false);
   const [preview, setPreview] = useState(true);
+  const [editedNote, setEditedNote] = useState(null);
+  const [action, setAction] = useState("");
 
-  //get note from db on load
   useEffect(() => {
     if (noteID) {
       fetch(`/api/notez/${noteID}`, {
@@ -31,8 +33,11 @@ export default function Note() {
             private: data.private,
             createdBy: data.createdBy,
             createdById: data.createdById,
-            noteID: data.noteID,
+            noteId: data.noteId,
             createdById: data.createdById,
+          });
+          setEditedNote({
+            ...data,
           });
         });
     }
@@ -47,8 +52,61 @@ export default function Note() {
     }
   }, [note, session]);
 
-  const handleDelete = () => console.log(isOwner);
-  const handleSave = () => console.log("saving");
+  const handleDelete = () => {
+    setAction("deleting");
+    if (note) {
+      fetch(`/api/notez/${note.noteId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then((res) => {
+        if (res.status === 200) {
+          router.push("/");
+        }
+      });
+    }
+    setAction("");
+  };
+  const handleSave = () => {
+    setAction("saving");
+    console.log("saving");
+    fetch(`/api/notez/${noteID}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editedNote),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setNote({
+          ...editedNote,
+        });
+        setEditing(false);
+      });
+    setAction("");
+  };
+  const handleEdit = () => {
+    if (editing === true) {
+      setEditedNote({
+        ...note,
+      });
+      setPreview(true);
+    } else {
+      setPreview(false);
+    }
+    setEditing(!editing);
+  };
+  const handlePrivate = () => {
+    setEditedNote({
+      ...editedNote,
+      private: !editedNote.private,
+    });
+    console.log(note.private);
+    console.log(editedNote.private);
+    console.log(isOwner);
+  };
 
   if (!note) {
     return (
@@ -60,52 +118,70 @@ export default function Note() {
     );
   }
 
+  //if the note is private, display a message
+  if (note.private === true && !isOwner) {
+    return (
+      <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
+        <div className="mx-auto flex h-full max-w-4xl items-center justify-center">
+          <h1 className="text-4xl text-gray-100">This note is private</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
       <div className="mx-auto h-full max-w-4xl">
         <div className="w-full">
-          <button
-            className="mr-2 rounded border-2  border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100"
-            onClick={() => setPreview(!preview)}
-          >
-            {!preview ? "Preview" : "Raw Markdown"}
-          </button>
-          <button
-            className={`mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100 disabled:border-gray-400 disabled:text-gray-100 disabled:hover:border-gray-400 disabled:hover:bg-gray-800 `}
-            onClick={handleSave}
-            disabled={deleting || saving || !isOwner}
-          >
-            {saving ? "Saving..." : "Save"}
-          </button>
-          <button
-            className={`mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100 disabled:border-gray-400 disabled:text-gray-100 disabled:hover:bg-gray-800`}
-            onClick={handleDelete}
-            disabled={deleting || saving || !isOwner}
-          >
-            {saving ? "Deleting..." : "Delete"}
-          </button>
+          <Button className={"ml-0"} onClick={() => setPreview(!preview)}>
+            {preview ? "Preview" : "Raw Markdown"}
+          </Button>
+          {isOwner && (
+            <>
+              <Button onClick={handleEdit}>
+                {editing ? "Cancel Edit" : "Edit Note"}
+              </Button>
+              {editing && (
+                <>
+                  {" "}
+                  <Button onClick={handleSave}>Save</Button>
+                  <Button onClick={handlePrivate}>
+                    {editedNote.private ? "set Public" : "set Private"}
+                  </Button>
+                </>
+              )}
+              <Button onClick={handleDelete}>Delete</Button>
+            </>
+          )}
         </div>
+        <p className="animate-pulse text-white">{action}</p>
 
         <div className="mt-4 flex flex-col items-center justify-center">
           <div className="w-full">
             <input
               type="text"
-              className="text-m w-full border-gray-700 bg-gray-800 font-bold text-white focus:border-blue-500 focus:outline-none"
+              className={`text-m w-full border-gray-700 bg-gray-800 font-bold focus:border-blue-500 focus:outline-none ${
+                editing ? "text-white" : "text-green-500"
+              } `}
               placeholder="Title"
-              value={note ? note.title : ""}
-              onChange={(e) => setNote({ ...note, title: e.target.value })}
-              disabled={!preview}
+              value={editedNote.title}
+              onChange={(e) =>
+                setEditedNote({ ...editedNote, title: e.target.value })
+              }
+              readOnly={!editing}
             />
 
             {preview ? (
-              <MarkdownPreview note={note.content} />
+              <MarkdownPreview note={editedNote.content} />
             ) : (
               <textarea
                 className="h-96 w-full border-gray-700 bg-gray-800 font-bold text-white focus:border-blue-500 focus:outline-none"
                 placeholder="Content"
-                value={note ? note.content : ""}
-                onChange={(e) => setNote({ ...note, content: e.target.value })}
-                readOnly={saving || deleting || !isOwner}
+                value={editedNote.content}
+                onChange={(e) =>
+                  setEditedNote({ ...editedNote, content: e.target.value })
+                }
+                readOnly={!editing}
               />
             )}
           </div>
