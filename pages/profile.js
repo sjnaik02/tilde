@@ -2,7 +2,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-function profile() {
+function Profile() {
   const session = useSession();
   const id = session.data ? session.data.user.id : null;
   const [notes, setNotes] = useState([]);
