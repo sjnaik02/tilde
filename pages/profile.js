@@ -49,11 +49,15 @@ function profile() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {notes.map((note) => (
                 <div
-                  key={note.noteID}
+                  key={note.noteId}
                   className=" rounded-lg bg-gray-700 p-4 font-bold hover:cursor-pointer hover:bg-gray-600"
                 >
-                  <h3 className="text-xl font-bold">{note.title}</h3>
-                  <p className="overflow-ellipsis text-sm">{note.content}</p>
+                  <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-xl font-bold">
+                    {note.title}
+                  </h3>
+                  <p className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap text-sm">
+                    {note.content}
+                  </p>
                   <Link href={`/notes/${note.noteId}`}>
                     <a className=" text-blue-500">View</a>
                   </Link>
