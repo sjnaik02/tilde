@@ -1,34 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tilde
 
-## Getting Started
+![Tilde](screenshots/Home_Page.png)
 
-First, run the development server:
+Tilde is a simple and beautiful Markdown note taking and sharing app. It's built using Next.js, React, and Tailwind CSS, with MongoDB as the database. It's also open source, so you can run your own instance of Tilde. Taking notes is as easy as logging in using your Github or Google account, and you can share your notes with anyone by simply sharing the link.
 
-```bash
-npm run dev
-# or
-yarn dev
+## Images
+
+![Profile Page](screenshots/Profile_Page.png)
+
+<br>
+
+![Note Page](screenshots/Note_Page.png)
+
+<br>
+
+## Features
+
+- Markdown support
+- Secure login using Github or Google
+- Easy note sharing
+- Beautiful and no nonsense UI
+- Open source and free to use
+- Dark mode by default
+- Private notes
+
+## Future plans
+
+- [ ] Add support for more authentication providers
+- [ ] Add support for more themes
+- [ ] Add support for more languages
+- [ ] Syntax highlighting
+- [ ] Export notes to PDF, HTML, or Markdown
+- [ ] Add support for version control
+- [ ] Add support for tags
+- [ ] Add support for note templates
+- [ ] Add support for collaborative notes
+
+## Installation
+
+- Clone the repository
+- Install dependencies using `npm install`
+- Create a `.env` file in the root directory and add the following variables:
+
+```
+MONGO_URI=<your_mongo_uri>
+GITHUB_CLIENT_ID=<your_github_client_id>
+GITHUB_CLIENT_SECRET=<your_github_client_secret>
+GOOGLE_CLIENT_ID=<your_google_client_id>
+GOOGLE_CLIENT_SECRET=<your_google_client_secret>
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Run the app using `npm run dev`
