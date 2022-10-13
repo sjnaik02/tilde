@@ -38,7 +38,7 @@ function Profile() {
     const id = session.data.user.id;
 
     return (
-      <div className="h-[calc(100vh-4.5rem)] bg-gray-800 p-4 font-mono text-gray-100">
+      <div className="h-full min-h-[calc(100vh-4.5rem)] bg-gray-800 p-4 font-mono text-gray-100">
         <div className="mx-auto flex h-full max-w-4xl flex-col">
           <h1 className="mt-8 mb-4 text-6xl font-bold">
             {session.data.user.name}
