@@ -10,7 +10,7 @@ function Layout({ children }) {
   let userString = session.data ? session.data.user.name : "Not signed in";
   return (
     <>
-      <div className="bg-gray-800 py-4 font-mono">
+      <div className="bg-primary py-4 font-mono">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 lg:px-0">
           <Link href="/">
             <a className="text-xl font-bold text-gray-50 hover:text-gray-300">

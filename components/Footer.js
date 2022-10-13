@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="bg-gray-800 font-mono text-gray-100">
+    <div className="bg-primary font-mono text-gray-100">
       <div className="mx-auto max-w-4xl px-4 py-4 lg:px-0">
         <p className="text-center text-sm">
           Made with ❤️ by{" "}

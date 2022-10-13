@@ -110,7 +110,7 @@ export default function Note() {
 
   if (!note) {
     return (
-      <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
+      <div className="h-fit min-h-screen bg-primary px-4 font-mono">
         <div className="mx-auto flex h-full max-w-4xl items-center justify-center">
           <h1 className="animate-pulse text-4xl text-gray-100">Loading...</h1>
         </div>
@@ -121,7 +121,7 @@ export default function Note() {
   //if the note is private, display a message
   if (note.private === true && !isOwner) {
     return (
-      <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
+      <div className="h-fit min-h-screen bg-primary px-4 font-mono">
         <div className="mx-auto flex h-full max-w-4xl items-center justify-center">
           <h1 className="text-4xl text-gray-100">This note is private</h1>
         </div>
@@ -130,7 +130,7 @@ export default function Note() {
   }
 
   return (
-    <div className="h-fit min-h-screen bg-gray-800 px-4 font-mono">
+    <div className="h-fit min-h-screen bg-primary px-4 font-mono">
       <div className="mx-auto h-full max-w-4xl">
         <div className="w-full">
           <Button className={"ml-0"} onClick={() => setPreview(!preview)}>
@@ -160,7 +160,7 @@ export default function Note() {
           <div className="w-full">
             <input
               type="text"
-              className={`text-m w-full border-gray-700 bg-gray-800 font-bold focus:border-blue-500 focus:outline-none ${
+              className={`text-m w-full border-gray-700 bg-primary font-bold focus:border-blue-500 focus:outline-none ${
                 editing ? "text-white" : "text-green-500"
               } `}
               placeholder="Title"
@@ -175,7 +175,7 @@ export default function Note() {
               <MarkdownPreview note={editedNote.content} />
             ) : (
               <textarea
-                className="h-96 w-full border-gray-700 bg-gray-800 font-bold text-white focus:border-blue-500 focus:outline-none"
+                className="h-96 w-full border-gray-700 bg-primary font-bold text-white focus:border-blue-500 focus:outline-none"
                 placeholder="Content"
                 value={editedNote.content}
                 onChange={(e) =>
