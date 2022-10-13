@@ -38,7 +38,7 @@ function Profile() {
     const id = session.data.user.id;
 
     return (
-      <div className="h-full min-h-[calc(100vh-4.5rem)] bg-gray-800 p-4 font-mono text-gray-100">
+      <div className="h-full min-h-[calc(100vh-4.5rem)] bg-primary p-4 font-mono text-gray-100">
         <div className="mx-auto flex h-full max-w-4xl flex-col">
           <h1 className="mt-8 mb-4 text-6xl font-bold">
             {session.data.user.name}
@@ -50,7 +50,7 @@ function Profile() {
               {notes.map((note) => (
                 <div
                   key={note.noteId}
-                  className=" rounded-lg bg-gray-700 p-4 font-bold"
+                  className=" rounded-lg border-2 border-blue-800 p-4 font-bold hover:border-blue-500"
                 >
                   <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap py-1 text-xl font-bold">
                     {note.title}
@@ -62,7 +62,7 @@ function Profile() {
                     {note.private ? "Private" : "Public"}
                   </p>
                   <Link href={`/notes/${note.noteId}`}>
-                    <a className=" text-blue-500 hover:text-blue-400 hover:underline">
+                    <a className=" text-xs text-blue-500 hover:text-blue-400 hover:underline">
                       View
                     </a>
                   </Link>
