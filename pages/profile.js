@@ -1,5 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
+import Card from "../components/Card";
 import Link from "next/link";
 
 function Profile() {
@@ -48,25 +49,12 @@ function Profile() {
             <h2 className=" mt-8 pb-2 text-2xl font-bold ">My Notes</h2>
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {notes.map((note) => (
-                <div
-                  key={note.noteId}
-                  className=" rounded-lg border-2 border-blue-800 p-4 font-bold hover:border-blue-500"
-                >
-                  <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap py-1 text-xl font-bold">
-                    {note.title}
-                  </h3>
-                  <p className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap py-1 text-sm">
-                    {note.content}
-                  </p>
-                  <p className=" text-xs text-green-500">
-                    {note.private ? "Private" : "Public"}
-                  </p>
-                  <Link href={`/notes/${note.noteId}`}>
-                    <a className=" text-xs text-blue-500 hover:text-blue-400 hover:underline">
-                      View
-                    </a>
-                  </Link>
-                </div>
+                <Card
+                  title={note.title}
+                  content={note.content}
+                  id={note.noteId}
+                  isPrivate={note.private}
+                />
               ))}
             </div>
           </section>
