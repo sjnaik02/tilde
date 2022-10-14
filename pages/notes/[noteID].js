@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import MarkdownPreview from "../../components/MarkdownPreview";
 import Button from "../../components/Button";
+import Editor from "../../components/Editor";
 
 export default function Note() {
   //get note from url
@@ -174,15 +175,16 @@ export default function Note() {
             {preview ? (
               <MarkdownPreview note={editedNote.content} />
             ) : (
-              <textarea
-                className="h-96 w-full border-gray-700 bg-primary font-bold text-white focus:border-blue-500 focus:outline-none"
-                placeholder="Content"
-                value={editedNote.content}
-                onChange={(e) =>
-                  setEditedNote({ ...editedNote, content: e.target.value })
-                }
-                readOnly={!editing}
-              />
+              <>
+                <Editor
+                  value={editedNote.content}
+                  onChange={(e) =>
+                    setEditedNote({ ...editedNote, content: e.target.value })
+                  }
+                  placeholder={"Content"}
+                  isReadOnly={!editing}
+                />
+              </>
             )}
           </div>
         </div>

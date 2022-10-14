@@ -1,5 +1,6 @@
 import { useState } from "react";
 import autosize from "autosize";
+import Editor from "../components/Editor";
 import MarkdownPreview from "../components/MarkdownPreview";
 import { useSession } from "next-auth/react";
 import { nanoid } from "nanoid";
@@ -82,7 +83,7 @@ export default function Create() {
 
         <input
           type="text"
-          className={`mt-4 w-full bg-gray-800 p-1 pl-0 text-gray-100 caret-white outline-none ${
+          className={`mt-4 w-full bg-primary p-1 pl-0 text-gray-100 caret-white outline-none ${
             preview ? "text-sm" : ""
           } `}
           placeholder="Title"
@@ -93,13 +94,14 @@ export default function Create() {
         {preview ? (
           <MarkdownPreview note={note} />
         ) : (
-          <textarea
-            ref={autosize}
-            className="text-m my-4 w-full border-none bg-gray-800 text-gray-50 focus:outline-none"
-            value={note}
-            onChange={handleChange}
-            placeholder="Type out your next masterpiece"
-          />
+          <>
+            <Editor
+              value={note}
+              onChange={handleChange}
+              placeholder={"Type out your next masterpiece"}
+              isReadOnly={false}
+            />
+          </>
         )}
       </div>
     </div>
