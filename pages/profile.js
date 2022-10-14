@@ -9,7 +9,6 @@ function Profile() {
   const [notes, setNotes] = useState([]);
   //fetch notes by user id
   useEffect(() => {
-    console.log(id);
     if (id) {
       fetch("/api/notez/notes-by-user", {
         method: "POST",
