@@ -4,6 +4,9 @@ import { useSession } from "next-auth/react";
 import MarkdownPreview from "../../components/MarkdownPreview";
 import Button from "../../components/Button";
 import Editor from "../../components/Editor";
+import { VscMarkdown, VscOpenPreview, VscSave } from "react-icons/vsc";
+import { TbEdit, TbEditOff } from "react-icons/tb";
+import { RiDeleteBin5Line, RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 
 export default function Note() {
   //get note from url
@@ -134,24 +137,47 @@ export default function Note() {
     <div className="h-fit min-h-screen bg-primary px-4 font-mono">
       <div className="mx-auto h-full max-w-4xl">
         <div className="w-full">
-          <Button className={"ml-0"} onClick={() => setPreview(!preview)}>
-            {preview ? "Preview" : "Raw Markdown"}
+          <Button
+            className={"ml-0 md:ml-0"}
+            onClick={() => setPreview(!preview)}
+          >
+            {preview ? (
+              <VscMarkdown className="text-xl" />
+            ) : (
+              <VscOpenPreview className="text-xl" />
+            )}
           </Button>
           {isOwner && (
             <>
               <Button onClick={handleEdit}>
-                {editing ? "Cancel Edit" : "Edit Note"}
+                {editing ? (
+                  <TbEditOff className="text-xl" />
+                ) : (
+                  <TbEdit className="text-xl" />
+                )}
               </Button>
               {editing && (
                 <>
-                  {" "}
-                  <Button onClick={handleSave}>Save</Button>
+                  <Button onClick={handleSave}>
+                    <VscSave className="text-xl" />
+                  </Button>
                   <Button onClick={handlePrivate}>
-                    {editedNote.private ? "set Public" : "set Private"}
+                    {editedNote.private ? (
+                      <RiEyeLine className="text-xl" />
+                    ) : (
+                      <RiEyeCloseLine className="text-xl" />
+                    )}
                   </Button>
                 </>
               )}
-              <Button onClick={handleDelete}>Delete</Button>
+              <Button
+                className={
+                  "border-red-500 text-red-500 hover:border-red-500 hover:bg-red-500"
+                }
+                onClick={handleDelete}
+              >
+                <RiDeleteBin5Line className="text-xl" />
+              </Button>
             </>
           )}
         </div>
