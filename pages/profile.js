@@ -49,6 +49,7 @@ function Profile() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {notes.map((note) => (
                 <Card
+                  key={note.noteId}
                   title={note.title}
                   content={note.content}
                   id={note.noteId}
