@@ -14,7 +14,7 @@ function Header() {
     <div className="bg-primary py-4 font-mono">
       <div className="mx-auto flex max-w-4xl items-center justify-between px-4 lg:px-0">
         <Link href="/">
-          <a className="text-lg font-bold text-gray-50 hover:text-gray-300">
+          <a className="`text-lg font-bold text-gray-50 hover:text-gray-300">
             ~Tilde~
           </a>
         </Link>
