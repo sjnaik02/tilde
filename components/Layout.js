@@ -1,9 +1,7 @@
 import { useRouter } from "next/router";
 import { useSession, signIn, signOut } from "next-auth/react";
-import Link from "next/link";
 import Footer from "./Footer";
 import Header from "./Header";
-import { VscSignIn, VscSignOut, VscAdd } from "react-icons/vsc";
 
 function Layout({ children }) {
   const router = useRouter();
