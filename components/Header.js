@@ -43,7 +43,7 @@ function Header() {
               className="w-fit border-green-500 text-green-500 hover:border-green-500 hover:bg-green-500"
               onClick={() => router.push("/create-note")}
             >
-              <VscAdd className="inline-block text-xl" />
+              <VscAdd className="inline-block text-xl text-green-500 hover:text-white" />
             </Button>
           )}
         </div>
