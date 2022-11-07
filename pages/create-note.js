@@ -4,6 +4,9 @@ import Editor from "../components/Editor";
 import MarkdownPreview from "../components/MarkdownPreview";
 import { useSession } from "next-auth/react";
 import { nanoid } from "nanoid";
+import Button from "../components/Button";
+import { VscMarkdown, VscOpenPreview, VscSave } from "react-icons/vsc";
+import { RiEyeLine, RiEyeCloseLine } from "react-icons/ri";
 
 export default function Create() {
   const [note, setNote] = useState("");
@@ -52,33 +55,35 @@ export default function Create() {
   return (
     <div className="h-fit min-h-screen bg-primary px-4 font-mono">
       <div className="mx-auto h-full max-w-4xl">
-        <button
-          className="mr-2 rounded border-2  border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100"
-          onClick={() => setPreview(!preview)}
-        >
-          {preview ? "Edit" : "Preview"}
-        </button>
-
-        <button
-          className="mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500 hover:text-gray-100 disabled:border-gray-400 disabled:text-gray-100 disabled:hover:bg-gray-800"
+        {/* horizontally center the buttons */}
+        <Button onClick={() => setPreview(!preview)} className={"ml-0 md:ml-0"}>
+          {preview ? (
+            <VscMarkdown className="text-xl" />
+          ) : (
+            <VscOpenPreview className="text-xl" />
+          )}
+        </Button>
+        <Button
           onClick={handleSave}
           disabled={
             session.status === "unauthenticated" || session.status === "loading"
           }
         >
-          Save
-        </button>
-
-        <button
-          className="disabled:hover:bg-gray-80 mx-2 rounded border-2 border-blue-500 py-2 px-4 font-bold text-blue-500 hover:border-blue-500 hover:bg-blue-500  hover:text-gray-100 disabled:border-gray-400 disabled:text-gray-100 disabled:hover:bg-gray-800"
+          <VscSave className="text-xl" />
+        </Button>
+        <Button
           onClick={() => setisPrivate(!isPrivate)}
           disabled={
             session.status === "unauthenticated" || session.status === "loading"
           }
+          className={"mr-0 md:mr-0"}
         >
-          {isPrivate ? "set Public" : "set Private"}
-        </button>
-
+          {isPrivate ? (
+            <RiEyeCloseLine className="text-xl" />
+          ) : (
+            <RiEyeLine className="text-xl" />
+          )}
+        </Button>
         {saving && <span className="animate-pulse text-white ">Saving..</span>}
 
         <input
