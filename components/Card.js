@@ -9,7 +9,9 @@ function Card({ title, content, id, isPrivate }) {
           <h3 className="w-full overflow-hidden overflow-ellipsis whitespace-nowrap py-1 text-xl font-bold">
             {title}
           </h3>
-          <p className="mb-2 text-sm line-clamp-3">{content}</p>
+          <p className="mb-2 min-h-[2.5rem] text-sm  font-normal line-clamp-2">
+            {content}
+          </p>
           <p className="mt-auto text-xs text-green-500">
             {isPrivate ? "Private" : "Public"}
           </p>
