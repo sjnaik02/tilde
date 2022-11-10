@@ -50,8 +50,10 @@ function Profile() {
             <SearchBar search={search} setSearch={setSearch} />
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
               {notes
-                .filter((note) =>
-                  note.title.toLowerCase().includes(search.toLowerCase())
+                .filter(
+                  (note) =>
+                    note.title.toLowerCase().includes(search.toLowerCase()) ||
+                    note.content.toLowerCase().includes(search.toLowerCase())
                 )
                 .map((note) => (
                   <Card
