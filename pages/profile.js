@@ -1,12 +1,13 @@
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
-import Link from "next/link";
+import SearchBar from "../components/SearchBar";
 
 function Profile() {
   const session = useSession();
   const id = session.data ? session.data.user.id : null;
   const [notes, setNotes] = useState([]);
+  const [search, setSearch] = useState("");
   //fetch notes by user id
   useEffect(() => {
     if (id) {
@@ -46,16 +47,23 @@ function Profile() {
           <hr></hr>
           <section>
             <h2 className=" mt-8 pb-2 text-2xl font-bold ">My Notes</h2>
+            <SearchBar search={search} setSearch={setSearch} />
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {notes.map((note) => (
-                <Card
-                  key={note.noteId}
-                  title={note.title}
-                  content={note.content}
-                  id={note.noteId}
-                  isPrivate={note.private}
-                />
-              ))}
+              {notes
+                .filter(
+                  (note) =>
+                    note.title.toLowerCase().includes(search.toLowerCase()) ||
+                    note.content.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((note) => (
+                  <Card
+                    key={note.noteId}
+                    title={note.title}
+                    content={note.content}
+                    id={note.noteId}
+                    isPrivate={note.private}
+                  />
+                ))}
             </div>
           </section>
         </div>

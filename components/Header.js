@@ -20,10 +20,10 @@ function Header() {
         </Link>
         <div className="flex">
           {status === "unauthenticated" ? (
-            <p className="py-2 text-lg text-gray-100 ">{userString}</p>
+            <p className="my-auto text-sm text-gray-100 ">{userString}</p>
           ) : (
             <Link href="/profile">
-              <a className="py-2 text-lg text-gray-100 hover:text-gray-300">
+              <a className="text-md my-auto  text-gray-100  hover:text-gray-300 md:text-lg">
                 {userString}
               </a>
             </Link>
@@ -40,7 +40,7 @@ function Header() {
           )}
           {pathname !== "/create-note" && (
             <Button
-              className="w-fit border-green-500 text-green-500 hover:border-green-500 hover:bg-green-500"
+              className="w-fit border-green-500 text-green-500 hover:border-green-500 hover:bg-green-500   "
               onClick={() => router.push("/create-note")}
             >
               <VscAdd className="inline-block text-xl text-green-500 hover:text-white" />

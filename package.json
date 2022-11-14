@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^1.0.4",
+    "@tailwindcss/line-clamp": "^0.4.2",
     "autosize": "^5.0.1",
     "mongo": "^0.1.0",
     "mongodb": "^4.9.1",
